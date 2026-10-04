@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sortBy: 'date-desc',
     currentPage: 1,
     pageSize: 20,
-    chartMetric: 'earned', // 'earned', 'net', 'all'
+    chartMetric: 'all', // Default to 'all' so Full Breakdown (Earned + Losses + Net line) is always shown
     activeCardId: null
   };
 
@@ -148,22 +148,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeline = data.monthly_timeline;
     if (!wrapper || !timeline || !timeline.length) return;
 
-    const width = wrapper.clientWidth || (window.innerWidth < 768 ? window.innerWidth - 40 : 1000);
-    const height = window.innerWidth < 768 ? 220 : 260;
     const isMobile = window.innerWidth < 768;
+    const width = wrapper.clientWidth || (isMobile ? window.innerWidth - 40 : 1000);
+    const height = isMobile ? 290 : 310;
     const padding = { 
-      top: 20, 
-      right: isMobile ? 12 : 25, 
-      bottom: isMobile ? 32 : 40, 
-      left: isMobile ? 42 : 55 
+      top: 25, 
+      right: isMobile ? 18 : 28, 
+      bottom: isMobile ? 46 : 52, 
+      left: isMobile ? 48 : 58 
     };
 
     const chartW = width - padding.left - padding.right;
     const chartH = height - padding.top - padding.bottom;
 
-    // Determine scale bounds
+    // Determine scale bounds with comfortable headroom
     const maxVal = Math.max(...timeline.map(d => Math.max(d.earned, d.net_balance, 1000))) * 1.15;
-    const minVal = Math.min(0, ...timeline.map(d => Math.min(d.net_balance, d.gambling_net)));
+    const minVal = -5000; // Guaranteed headroom for -4475.35 loss bar
 
     function getY(val) {
       const range = maxVal - minVal;
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Zero Line
     const zeroY = getY(0);
-    const zeroLineSvg = `<line x1="${padding.left}" y1="${zeroY}" x2="${width - padding.right}" y2="${zeroY}" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />`;
+    const zeroLineSvg = `<line x1="${padding.left}" y1="${zeroY}" x2="${width - padding.right}" y2="${zeroY}" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" />`;
 
     // Bars & Points
     let barsSvg = '';
@@ -200,14 +200,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const barX = xCenter - barWidth / 2;
 
       // Earned Bar (Positive, pointing up from zero line)
-      if ((state.chartMetric === 'earned' || state.chartMetric === 'all') && item.earned > 0) {
-        const barHeight = Math.max(3, zeroY - getY(item.earned));
-        const barY = getY(item.earned);
-        barsSvg += `
-          <rect x="${barX}" y="${barY}" width="${barWidth}" height="${barHeight}" rx="4" class="chart-bar-earned" data-month="${item.label}">
-            <title>${item.label}: Earned ₹${formatINR(item.earned)}</title>
-          </rect>
-        `;
+      if (state.chartMetric === 'earned' || state.chartMetric === 'all') {
+        if (item.earned > 0) {
+          const barHeight = Math.max(3, zeroY - getY(item.earned));
+          const barY = getY(item.earned);
+          barsSvg += `
+            <rect x="${barX}" y="${barY}" width="${barWidth}" height="${barHeight}" rx="4" class="chart-bar-earned" data-month="${item.label}">
+              <title>${item.label}: Earned ₹${formatINR(item.earned)}</title>
+            </rect>
+          `;
+        } else {
+          // Zero earned indicator
+          barsSvg += `
+            <rect x="${barX}" y="${zeroY - 1}" width="${barWidth}" height="2" rx="1" fill="rgba(255,255,255,0.25)" data-month="${item.label}">
+              <title>${item.label}: ₹0.00 Earned</title>
+            </rect>
+          `;
+        }
       }
 
       // Gambling Loss Bar (Negative, pointing down below zero line)
@@ -227,9 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
         linePoints.push(`${xCenter},${netY}`);
       }
 
-      // Month Label on X-axis
+      // Month Label on X-axis (with ample bottom clearance)
       labelsSvg += `
-        <text x="${xCenter}" y="${height - 12}" class="chart-axis-text" text-anchor="middle" cursor="pointer" data-month="${item.label}">
+        <text x="${xCenter}" y="${height - 14}" class="chart-axis-text" text-anchor="middle" cursor="pointer" data-month="${item.label}">
           ${item.short_label}
         </text>
       `;

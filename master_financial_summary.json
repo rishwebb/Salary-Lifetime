@@ -1,0 +1,269 @@
+{
+  "currency": "INR",
+  "totals": {
+    "gross_earned": 47991.85,
+    "gambling_deposits": 17000.0,
+    "gambling_withdrawals": 11525.0,
+    "gambling_net_loss": -5475.0,
+    "net_pocket_balance": 42516.85,
+    "total_cash_inflow": 59516.85,
+    "total_outflow": 17000.0
+  },
+  "categories": [
+    {
+      "id": "agency",
+      "name": "Agency Salary",
+      "color": "#dcf836",
+      "amount": 32000.0,
+      "tx_count": 4,
+      "share": 66.68,
+      "icon": "briefcase"
+    },
+    {
+      "id": "college",
+      "name": "College Freelance",
+      "color": "#b4f044",
+      "amount": 10919.0,
+      "tx_count": 12,
+      "share": 22.75,
+      "icon": "graduation"
+    },
+    {
+      "id": "digital",
+      "name": "Digital Products",
+      "color": "#f2f059",
+      "amount": 4413.29,
+      "tx_count": 33,
+      "share": 9.2,
+      "icon": "shopping-bag"
+    },
+    {
+      "id": "razorpay",
+      "name": "Razorpay Payments",
+      "color": "#8ef57e",
+      "amount": 569.56,
+      "tx_count": 51,
+      "share": 1.19,
+      "icon": "credit-card"
+    },
+    {
+      "id": "review",
+      "name": "Review Work",
+      "color": "#d7f283",
+      "amount": 90.0,
+      "tx_count": 1,
+      "share": 0.19,
+      "icon": "star"
+    },
+    {
+      "id": "gambling",
+      "name": "Gambling Portfolio",
+      "color": "#ff5f5f",
+      "amount": -5475.0,
+      "tx_count": 61,
+      "share": 0.0,
+      "icon": "dice"
+    }
+  ],
+  "monthly_timeline": [
+    {
+      "month": "June",
+      "year": 2025,
+      "label": "June 2025",
+      "short_label": "Jun '25",
+      "earned": 90.0,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 90.0,
+      "tx_count": 1,
+      "categories_present": [
+        "Review Work"
+      ]
+    },
+    {
+      "month": "July",
+      "year": 2025,
+      "label": "July 2025",
+      "short_label": "Jul '25",
+      "earned": 0,
+      "gambling_net": -4475.35,
+      "gambling_deposits": 15000.0,
+      "gambling_withdrawals": 10524.65,
+      "net_balance": -4475.35,
+      "tx_count": 53,
+      "categories_present": [
+        "Gambling Portfolio"
+      ]
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "label": "August 2025",
+      "short_label": "Aug '25",
+      "earned": 0,
+      "gambling_net": 500.35,
+      "gambling_deposits": 500.0,
+      "gambling_withdrawals": 1000.35,
+      "net_balance": 500.35,
+      "tx_count": 6,
+      "categories_present": [
+        "Gambling Portfolio"
+      ]
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "label": "October 2025",
+      "short_label": "Oct '25",
+      "earned": 0,
+      "gambling_net": -1500.0,
+      "gambling_deposits": 1500.0,
+      "gambling_withdrawals": 0,
+      "net_balance": -1500.0,
+      "tx_count": 2,
+      "categories_present": [
+        "Gambling Portfolio"
+      ]
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "label": "January 2026",
+      "short_label": "Jan '26",
+      "earned": 4517.81,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 4517.81,
+      "tx_count": 13,
+      "categories_present": [
+        "Digital Products",
+        "College Freelance"
+      ]
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "label": "February 2026",
+      "short_label": "Feb '26",
+      "earned": 6662.8,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 6662.8,
+      "tx_count": 18,
+      "categories_present": [
+        "Digital Products",
+        "College Freelance"
+      ]
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "label": "March 2026",
+      "short_label": "Mar '26",
+      "earned": 4151.68,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 4151.68,
+      "tx_count": 6,
+      "categories_present": [
+        "Digital Products",
+        "College Freelance"
+      ]
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "label": "April 2026",
+      "short_label": "Apr '26",
+      "earned": 146.55,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 146.55,
+      "tx_count": 42,
+      "categories_present": [
+        "Razorpay"
+      ]
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "label": "May 2026",
+      "short_label": "May '26",
+      "earned": 313.01,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 313.01,
+      "tx_count": 8,
+      "categories_present": [
+        "Razorpay"
+      ]
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "label": "June 2026",
+      "short_label": "Jun '26",
+      "earned": 610.0,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 610.0,
+      "tx_count": 2,
+      "categories_present": [
+        "Razorpay",
+        "Agency Salary"
+      ]
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "label": "July 2026",
+      "short_label": "Jul '26",
+      "earned": 5000.0,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 5000.0,
+      "tx_count": 1,
+      "categories_present": [
+        "Agency Salary"
+      ]
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "label": "August 2026",
+      "short_label": "Aug '26",
+      "earned": 12500.0,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 12500.0,
+      "tx_count": 1,
+      "categories_present": [
+        "Agency Salary"
+      ]
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "label": "September 2026",
+      "short_label": "Sep '26",
+      "earned": 14000.0,
+      "gambling_net": 0,
+      "gambling_deposits": 0,
+      "gambling_withdrawals": 0,
+      "net_balance": 14000.0,
+      "tx_count": 1,
+      "categories_present": [
+        "Agency Salary"
+      ]
+    }
+  ]
+}

@@ -150,11 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const isMobile = window.innerWidth < 768;
     const width = wrapper.clientWidth || (isMobile ? window.innerWidth - 40 : 1000);
-    const height = isMobile ? 290 : 310;
+    const height = isMobile ? 310 : 340;
     const padding = { 
       top: 25, 
       right: isMobile ? 18 : 28, 
-      bottom: isMobile ? 46 : 52, 
+      bottom: isMobile ? 50 : 60, 
       left: isMobile ? 48 : 58 
     };
 
@@ -219,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Gambling Loss Bar (Negative, pointing down below zero line)
-      if ((state.chartMetric === 'all' || state.chartMetric === 'net') && item.gambling_net < 0) {
+      // Gambling Loss Bar (Negative, pointing down below zero line) - Always visible in all views (including Earned Revenue)
+      if (item.gambling_net < 0) {
         const lossHeight = Math.max(3, getY(item.gambling_net) - zeroY);
         const lossY = zeroY;
         barsSvg += `
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Month Label on X-axis (with ample bottom clearance)
       labelsSvg += `
-        <text x="${xCenter}" y="${height - 14}" class="chart-axis-text" text-anchor="middle" cursor="pointer" data-month="${item.label}">
+        <text x="${xCenter}" y="${height - 16}" class="chart-axis-text chart-month-label" text-anchor="middle" cursor="pointer" data-month="${item.label}">
           ${item.short_label}
         </text>
       `;

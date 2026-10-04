@@ -199,13 +199,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const barWidth = Math.min(24, stepX * 0.55);
       const barX = xCenter - barWidth / 2;
 
-      // Earned Bar
-      if (state.chartMetric === 'earned' || state.chartMetric === 'all') {
-        const barHeight = Math.max(2, Math.abs(getY(item.earned) - zeroY));
-        const barY = Math.min(getY(item.earned), zeroY);
+      // Earned Bar (Positive, pointing up from zero line)
+      if ((state.chartMetric === 'earned' || state.chartMetric === 'all') && item.earned > 0) {
+        const barHeight = Math.max(3, zeroY - getY(item.earned));
+        const barY = getY(item.earned);
         barsSvg += `
           <rect x="${barX}" y="${barY}" width="${barWidth}" height="${barHeight}" rx="4" class="chart-bar-earned" data-month="${item.label}">
             <title>${item.label}: Earned ₹${formatINR(item.earned)}</title>
+          </rect>
+        `;
+      }
+
+      // Gambling Loss Bar (Negative, pointing down below zero line)
+      if ((state.chartMetric === 'all' || state.chartMetric === 'net') && item.gambling_net < 0) {
+        const lossHeight = Math.max(3, getY(item.gambling_net) - zeroY);
+        const lossY = zeroY;
+        barsSvg += `
+          <rect x="${barX}" y="${lossY}" width="${barWidth}" height="${lossHeight}" rx="4" class="chart-bar-loss" data-month="${item.label}">
+            <title>${item.label}: Gambling Loss -₹${formatINR(Math.abs(item.gambling_net))}</title>
           </rect>
         `;
       }

@@ -453,11 +453,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const paginationInfo = document.getElementById('paginationInfo');
     const prevBtn = document.getElementById('prevPageBtn');
     const nextBtn = document.getElementById('nextPageBtn');
+    const heading = document.getElementById('txSectionHeading');
 
     if (!tbody) return;
 
     const filtered = getFilteredTransactions();
     const totalCount = filtered.length;
+    const grandTotal = data.transactions.length;
     const totalPages = Math.ceil(totalCount / state.pageSize) || 1;
 
     if (state.currentPage > totalPages) state.currentPage = totalPages;
@@ -466,7 +468,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const startIndex = (state.currentPage - 1) * state.pageSize;
     const pageItems = filtered.slice(startIndex, startIndex + state.pageSize);
 
-    showingCount.innerHTML = `Showing <strong>${pageItems.length}</strong> of <strong>${totalCount}</strong> transactions ${state.selectedMonth ? `&bull; Filtered by <strong>${state.selectedMonth}</strong>` : ''}`;
+    // Update section heading dynamically
+    if (heading) {
+      if (state.selectedMonth) {
+        heading.textContent = `${state.selectedMonth} Transactions (${totalCount} Records)`;
+      } else if (state.selectedCategory !== 'all') {
+        const catObj = data.categories.find(c => c.id === state.selectedCategory);
+        heading.textContent = `${catObj ? catObj.name : state.selectedCategory} (${totalCount} Records)`;
+      } else if (state.searchQuery) {
+        heading.textContent = `Search Results (${totalCount} Records)`;
+      } else {
+        heading.textContent = `All ${grandTotal} Transaction Records`;
+      }
+    }
+
+    // Informative meta bar with interactive clear chip
+    if (state.selectedMonth) {
+      showingCount.innerHTML = `Showing <strong>${pageItems.length}</strong> of <strong>${totalCount}</strong> for <strong>${state.selectedMonth}</strong> <span style="color:var(--text-muted); font-size:11px;">(Filtered from ${grandTotal} total)</span> <button class="filter-clear-chip" id="clearMonthChip" title="Click to view all 154 transactions">✕ Clear Month Filter</button>`;
+      setTimeout(() => {
+        const clearBtn = document.getElementById('clearMonthChip');
+        if (clearBtn) clearBtn.onclick = () => filterByMonth(null);
+      }, 0);
+    } else if (state.selectedCategory !== 'all' || state.searchQuery) {
+      showingCount.innerHTML = `Showing <strong>${pageItems.length}</strong> of <strong>${totalCount}</strong> transactions <span style="color:var(--text-muted); font-size:11px;">(Filtered from ${grandTotal} total)</span> <button class="filter-clear-chip" id="clearAllFiltersChip">✕ Reset</button>`;
+      setTimeout(() => {
+        const clearAllBtn = document.getElementById('clearAllFiltersChip');
+        if (clearAllBtn) clearAllBtn.onclick = () => document.getElementById('resetFiltersBtn').click();
+      }, 0);
+    } else {
+      showingCount.innerHTML = `Showing <strong>${pageItems.length}</strong> of <strong>${grandTotal}</strong> total transactions`;
+    }
+
     paginationInfo.textContent = `Page ${state.currentPage} of ${totalPages}`;
 
     prevBtn.disabled = state.currentPage <= 1;
